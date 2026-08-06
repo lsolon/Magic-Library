@@ -1,0 +1,70 @@
+{
+  "collections": [
+    {
+      "name": "users",
+      "description": "User profiles, progress, and inventory.",
+      "security": "Users can read and write their own profile.",
+      "fields": {
+        "displayName": "string",
+        "avatarUrl": "string",
+        "level": "number",
+        "xp": "number",
+        "stars": "number",
+        "createdAt": "timestamp"
+      }
+    },
+    {
+      "name": "books",
+      "description": "Books in the library.",
+      "security": "Anyone can read books.",
+      "fields": {
+        "title": "string",
+        "author": "string",
+        "coverUrl": "string",
+        "category": "string",
+        "difficulty": "string",
+        "readingTimeMinutes": "number",
+        "synopsis": "string",
+        "addedAt": "timestamp"
+      }
+    },
+    {
+      "name": "user_books",
+      "description": "Books a user is reading, has read, or wants.",
+      "security": "Users can read and write their own books.",
+      "fields": {
+        "userId": "string",
+        "bookId": "string",
+        "status": "string",
+        "progress": "number",
+        "addedAt": "timestamp"
+      }
+    },
+    {
+      "name": "clubs",
+      "description": "Reading clubs.",
+      "security": "Anyone can read.",
+      "fields": {
+        "name": "string",
+        "description": "string",
+        "imageUrl": "string",
+        "level": "number",
+        "progress": "number",
+        "createdAt": "timestamp"
+      }
+    },
+    {
+      "name": "exchanges",
+      "description": "Book exchange requests between users.",
+      "security": "Users involved can read and write.",
+      "fields": {
+        "initiatorId": "string",
+        "receiverId": "string",
+        "offeredBookId": "string",
+        "requestedBookId": "string",
+        "status": "string",
+        "createdAt": "timestamp"
+      }
+    }
+  ]
+}

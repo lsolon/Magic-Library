@@ -1,0 +1,8 @@
+{
+  "name": "Remix Magic Library",
+  "description": "Uma biblioteca mágica para crianças registrarem seus livros lidos e compartilharem aventuras literárias.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
