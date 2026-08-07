@@ -1,0 +1,33 @@
+name: Deploy to Oracle VPS
+
+on:
+  push:
+    branches:
+      - main # O deploy será feito quando houver atualizações na branch main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 1. Entra na pasta do projeto na VPS (Ajuste o caminho se necessário)
+            cd /home/ubuntu/magic-library
+            
+            # 2. Puxa as alterações mais recentes do GitHub
+            git pull origin main
+            
+            # 3. Instala novas dependências
+            npm install
+            
+            # 4. Faz o build do projeto (Gera a versão de produção)
+            npm run build
+            
+            # 5. Reinicia a aplicação usando o PM2
+            # Se a aplicação não existir no PM2, ele a inicia pela primeira vez.
+            pm2 restart magic-library || pm2 start npm --name "magic-library" -- run start
