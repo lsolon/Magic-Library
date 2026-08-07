@@ -186,7 +186,16 @@ async function startServer() {
     app.use(vite.middlewares);
   } else {
     const distPath = path.join(process.cwd(), 'dist');
-    app.use(express.static(distPath));
+    const basePath = process.env.VITE_BASE_PATH || '/';
+    
+    // Serve files in dist from the basePath
+    app.use(basePath, express.static(distPath));
+    
+    // Also serve from root in case Nginx strips the path when proxying
+    if (basePath !== '/') {
+      app.use('/', express.static(distPath));
+    }
+    
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });
