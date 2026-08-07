@@ -3,8 +3,12 @@ import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
+import fs from "fs";
 
-dotenv.config();
+if (fs.existsSync(".env.production")) {
+  dotenv.config({ path: ".env.production" });
+}
+dotenv.config(); // Fallback for standard .env
 
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
