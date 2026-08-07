@@ -30,7 +30,8 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <AuthProvider>
-      <Router>
+      {/* Adicionado o basename aqui para o React Router entender a subpasta */}
+      <Router basename="/magic-library">
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
