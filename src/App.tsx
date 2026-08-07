@@ -42,6 +42,7 @@ export default function App() {
           <Route path="/add-book" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
           <Route path="/chat" element={<ProtectedRoute><ExchangeChat /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </AuthProvider>

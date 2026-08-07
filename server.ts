@@ -5,8 +5,13 @@ import { GoogleGenAI, Type } from "@google/genai";
 import dotenv from "dotenv";
 import fs from "fs";
 
-if (fs.existsSync(".env.production")) {
-  dotenv.config({ path: ".env.production" });
+// If we are running from the dist folder, or NODE_ENV is production, load .env.production
+const isDist = typeof __dirname !== 'undefined' && __dirname.includes('dist');
+if (process.env.NODE_ENV === "production" || isDist) {
+  process.env.NODE_ENV = "production";
+  if (fs.existsSync(".env.production")) {
+    dotenv.config({ path: ".env.production" });
+  }
 }
 dotenv.config(); // Fallback for standard .env
 
