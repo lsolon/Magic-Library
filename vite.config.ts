@@ -5,8 +5,6 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    // Adicionada a propriedade base para alinhar com o subdiretório do Nginx
-    base: '/magic-library/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
