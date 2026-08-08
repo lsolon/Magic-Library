@@ -32,11 +32,18 @@ async function startServer() {
   app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
   // API routes
-  app.get("/api/health", (req, res) => {
+  const apiRouter = express.Router();
+  const basePathForApi = process.env.VITE_BASE_PATH || '/';
+  
+  app.use("/api", apiRouter);
+  if (basePathForApi !== '/') {
+    app.use(basePathForApi + "api", apiRouter);
+  }
+  apiRouter.get("/health", (req, res) => {
     res.json({ status: "ok" });
   });
 
-  app.post("/api/search-book", async (req, res) => {
+  apiRouter.post("/search-book", async (req, res) => {
     try {
       const { query } = req.body;
       if (!query) {
@@ -105,7 +112,7 @@ async function startServer() {
     }
   });
 
-  app.post("/api/validate-avatar", async (req, res) => {
+  apiRouter.post("/validate-avatar", async (req, res) => {
     try {
       const { imageBase64, mimeType } = req.body;
       if (!imageBase64) {
@@ -148,7 +155,7 @@ async function startServer() {
     }
   });
 
-  app.post("/api/generate-gemini-avatar", async (req, res) => {
+  apiRouter.post("/generate-gemini-avatar", async (req, res) => {
     try {
       const { prompt } = req.body;
       if (!prompt) {

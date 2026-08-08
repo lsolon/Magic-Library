@@ -65,7 +65,7 @@ export default function Dashboard() {
     setSearchResult(null);
 
     try {
-      const res = await fetch('/api/search-book', {
+      const res = await fetch(`${import.meta.env.BASE_URL}api/search-book`.replace('//', '/'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

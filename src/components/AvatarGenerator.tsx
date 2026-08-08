@@ -87,7 +87,7 @@ export function AvatarGenerator({
     setSuccessMsg('');
 
     try {
-      const res = await fetch('/api/generate-gemini-avatar', {
+      const res = await fetch(`${import.meta.env.BASE_URL}api/generate-gemini-avatar`.replace('//', '/'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt: geminiPrompt })
@@ -125,7 +125,7 @@ export function AvatarGenerator({
         const mimeType = file.type || 'image/jpeg';
 
         try {
-          const res = await fetch('/api/validate-avatar', {
+          const res = await fetch(`${import.meta.env.BASE_URL}api/validate-avatar`.replace('//', '/'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ imageBase64: base64String, mimeType })
