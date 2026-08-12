@@ -36,8 +36,13 @@ async function startServer() {
   const basePathForApi = process.env.VITE_BASE_PATH || '/';
   
   app.use("/api", apiRouter);
+  app.use("/magic-library/api", apiRouter);
+  app.use("/clientes/magic-library/api", apiRouter);
   if (basePathForApi !== '/') {
     app.use(basePathForApi + "api", apiRouter);
+    if (!basePathForApi.endsWith('/')) {
+       app.use(basePathForApi + "/api", apiRouter);
+    }
   }
   apiRouter.get("/health", (req, res) => {
     res.json({ status: "ok" });
