@@ -48,7 +48,7 @@ export function BookCoverCard({
   const fallbackGradient = gradients[gradientIndex];
 
   return (
-    <div className={`relative overflow-hidden rounded-lg bg-surface-variant shadow-md flex flex-col justify-end ${className}`}>
+    <div className={`relative overflow-hidden rounded-lg bg-surface-variant shadow-md flex flex-col justify-end transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:-rotate-1 hover:shadow-xl hover:z-10 cursor-pointer ${className}`}>
       {effectiveCoverUrl && !imageError ? (
         <img
           src={effectiveCoverUrl}

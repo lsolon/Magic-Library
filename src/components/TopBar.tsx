@@ -1,9 +1,9 @@
-import { Sparkles, LogOut, Compass, BookOpen, Package, User, MessageSquare } from 'lucide-react';
+import { Sparkles, LogOut, Compass, BookOpen, Package, User, MessageSquare, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { cn } from '../lib/utils';
 
-export function TopBar() {
+export function TopBar(props: any) {
   const { user, userAvatar, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export function TopBar() {
   const navItems = [
     { path: '/', icon: Compass, label: 'Mapa' },
     { path: '/library', icon: BookOpen, label: 'Livros' },
-    { path: '/clubs', icon: Package, label: 'Compartilhados' },
+    { path: '/clubs', icon: Package, label: 'Grupos' },
     { path: '/chat', icon: MessageSquare, label: 'Chat' },
     { path: '/profile', icon: User, label: 'Perfil' },
   ];
@@ -67,6 +67,18 @@ export function TopBar() {
         </div>
 
         <div className="flex gap-2">
+          {user?.email === 'leandrosolon@gmail.com' && (
+            <Link 
+              to="/admin"
+              className={cn(
+                "w-12 h-12 flex items-center justify-center rounded-full transition-all shadow-sm",
+                location.pathname === '/admin' ? 'bg-primary text-on-primary' : 'bg-surface-container text-primary hover:scale-105'
+              )}
+              title="Painel de Administração"
+            >
+              <Shield className="w-5 h-5" />
+            </Link>
+          )}
           <Link 
             to="/profile"
             className={cn(

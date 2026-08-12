@@ -7,6 +7,7 @@ import Library from './views/Library';
 import ExchangeChat from './views/ExchangeChat';
 import Register from './views/Register';
 import Profile from './views/Profile';
+import AdminPanel from './views/AdminPanel';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AddBook from './views/AddBook';
 import Landing from './views/Landing';
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/add-book" element={<ProtectedRoute><AddBook /></ProtectedRoute>} />
           <Route path="/chat" element={<ProtectedRoute><ExchangeChat /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>

@@ -278,7 +278,7 @@ export default function Library() {
                           </div>
                         )}
 
-                        <div className="w-full h-40 rounded-lg overflow-hidden mb-3 relative bg-[#87ceeb]/10 group-hover:scale-[1.02] transition-transform">
+                        <div className="w-full h-40 rounded-lg overflow-visible mb-3 relative bg-[#87ceeb]/10">
                           <BookCoverCard 
                             coverUrl={userBook.bookDetails?.coverUrl}
                             title={userBook.bookDetails?.title || 'Livro Desconhecido'}

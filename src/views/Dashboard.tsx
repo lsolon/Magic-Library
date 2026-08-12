@@ -170,7 +170,7 @@ export default function Dashboard() {
                 to={`/book/${ub.bookId}`}
                 className="snap-center shrink-0 w-[200px] bg-surface-container-lowest rounded-xl p-3 shadow-md border-2 border-primary-container/30 flex flex-col gap-3 hover:scale-105 transition-transform cursor-pointer"
               >
-                <div className="w-full h-48 rounded-lg overflow-hidden bg-surface-variant relative">
+                <div className="w-full h-48 rounded-lg overflow-visible bg-surface-variant relative">
                   <BookCoverCard 
                     coverUrl={ub.bookDetails?.coverUrl}
                     title={ub.bookDetails?.title || 'Livro Desconhecido'}
