@@ -14,8 +14,12 @@ import Landing from './views/Landing';
 import SetupProfile from './views/SetupProfile';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { user, needsProfileSetup } = useAuth();
+  const { user, needsProfileSetup, loading } = useAuth();
   const location = useLocation();
+
+  if (loading) {
+    return <div className="min-h-screen bg-[#fefccf] flex items-center justify-center font-headline-md text-primary">Carregando a Magia...</div>;
+  }
 
   if (!user) {
     return <Navigate to="/register" replace />;
