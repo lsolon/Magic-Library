@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, Sparkles, Award, Star, Shield, Save, Camera, ArrowLeft, Lock, Trash2, AlertTriangle, RotateCcw } from 'lucide-react';
+import { User, Sparkles, Award, Star, Shield, Save, Camera, ArrowLeft, Lock, Trash2, AlertTriangle, RotateCcw, Book, Flame, Timer, Package, Crown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { TopBar } from '../components/TopBar';
 import { BottomNav } from '../components/BottomNav';
@@ -8,7 +8,7 @@ import { AvatarGenerator } from '../components/AvatarGenerator';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { updateProfile as updateAuthProfile } from 'firebase/auth';
 import { db } from '../lib/firebase';
-import { syncUserGamificationStats } from '../lib/gamification';
+import { syncUserGamificationStats, calculateBadges, BadgeDef, GamificationStats } from '../lib/gamification';
 import { clearAllUserData, clearEntireDatabase } from '../lib/dataUtils';
 
 export default function Profile() {
@@ -21,7 +21,8 @@ export default function Profile() {
   const [magicalTitle, setMagicalTitle] = useState('Explorador(a) de Mundos');
   const [favoriteGenres, setFavoriteGenres] = useState('Fantasia, Aventura, Mistério');
   const [bio, setBio] = useState('Amante de livros mágicos e universos fantásticos.');
-  const [stats, setStats] = useState({ level: 1, xp: 0, stars: 0 });
+  const [stats, setStats] = useState<GamificationStats>({ level: 1, xp: 0, stars: 0, totalBooks: 0, completedBooks: 0, totalPagesRead: 0 });
+  const [badges, setBadges] = useState<BadgeDef[]>([]);
   const [saving, setSaving] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState('');
@@ -41,7 +42,8 @@ export default function Profile() {
 
     try {
       await clearAllUserData(user.uid);
-      setStats({ level: 1, xp: 0, stars: 0 });
+      setStats({ level: 1, xp: 0, stars: 0, totalBooks: 0, completedBooks: 0, totalPagesRead: 0 });
+      setBadges(calculateBadges({ level: 1, xp: 0, stars: 0, totalBooks: 0, completedBooks: 0, totalPagesRead: 0 }));
       setSuccessMessage('Todos os seus livros e dados foram apagados com sucesso! ✨');
       setTimeout(() => setSuccessMessage(''), 5000);
     } catch (err) {
@@ -64,7 +66,8 @@ export default function Profile() {
 
     try {
       await clearEntireDatabase();
-      setStats({ level: 1, xp: 0, stars: 0 });
+      setStats({ level: 1, xp: 0, stars: 0, totalBooks: 0, completedBooks: 0, totalPagesRead: 0 });
+      setBadges(calculateBadges({ level: 1, xp: 0, stars: 0, totalBooks: 0, completedBooks: 0, totalPagesRead: 0 }));
       setSuccessMessage('Todo o banco de dados da aplicação foi limpo com sucesso! 🧹✨');
       setTimeout(() => setSuccessMessage(''), 5000);
     } catch (err) {
@@ -86,7 +89,8 @@ export default function Profile() {
       try {
         // Sync & calculate latest gamification stats from Firestore user_books
         const syncedStats = await syncUserGamificationStats(user.uid);
-        setStats({ level: syncedStats.level, xp: syncedStats.xp, stars: syncedStats.stars });
+        setStats(syncedStats);
+        setBadges(calculateBadges(syncedStats));
 
         const userRef = doc(db, 'users', user.uid);
         const userSnap = await getDoc(userRef);
@@ -346,9 +350,40 @@ export default function Profile() {
                 ))}
               </div>
             </div>
+
+{/* Badges Section */}
+            <div className="bg-surface-container-lowest rounded-2xl p-6 border-2 border-primary-container shadow-lg flex flex-col mt-6">
+              <h3 className="font-headline-sm text-primary font-bold mb-4 flex items-center gap-2">
+                <Award className="w-5 h-5" /> Emblemas
+              </h3>
+              <div className="flex flex-col gap-3">
+                {badges.map((badge) => {
+                  const Icon = badge.iconType === 'book' ? Book :
+                               badge.iconType === 'flame' ? Flame :
+                               badge.iconType === 'timer' ? Timer :
+                               badge.iconType === 'package' ? Package :
+                               badge.iconType === 'crown' ? Crown : Award;
+                  return (
+                    <div key={badge.id} className={`flex items-center gap-4 p-3 rounded-xl border transition-all ${badge.achieved ? 'bg-primary-container/20 border-primary/30 shadow-sm' : 'bg-surface-container border-surface-variant opacity-60 grayscale'}`}>
+                      <div className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 shadow-sm ${badge.achieved ? 'bg-primary text-on-primary' : 'bg-surface-variant text-on-surface-variant'}`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className={`font-label-lg font-bold ${badge.achieved ? 'text-primary' : 'text-on-surface-variant'}`}>{badge.name}</h4>
+                          {badge.achieved && <Star className="w-3.5 h-3.5 text-tertiary fill-tertiary" />}
+                        </div>
+                        <p className="text-[11px] text-on-surface-variant leading-tight">{badge.description}</p>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           </div>
 
-          {/* Right Column: Edit Profile Form */}
+          
+            {/* Right Column: Edit Profile Form */}
           <div className="md:col-span-2 space-y-6">
             <form onSubmit={handleSave} className="bg-surface-container-lowest rounded-2xl p-8 border-2 border-primary-container/60 shadow-xl space-y-6">
               <h3 className="font-headline-lg text-primary border-b border-surface-variant pb-3 flex items-center gap-2">
