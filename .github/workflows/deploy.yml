@@ -41,6 +41,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd /var/www/approutinetech/dist/magic-library
+            chmod -R 755 assets
             npm install --omit=dev
             pm2 restart magic-library || pm2 start dist/server.cjs --name magic-library
             pm2 save
