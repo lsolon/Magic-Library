@@ -1,8 +1,10 @@
 name: Deploy to Oracle VPS
+
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -18,7 +20,7 @@ jobs:
       - name: Install and build
         run: |
           npm install
-          npx vite build
+          npm run build
         env:
           VITE_BASE_PATH: /magic-library/
 
@@ -28,14 +30,16 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          source: "dist/*"
+          source: "dist,package.json"
           target: /var/www/approutinetech/dist/magic-library/
-          strip_components: 1
 
-      - name: Fix permissions
+      - name: Fix permissions and install dependencies
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          script: chmod -R 755 /var/www/approutinetech/dist/magic-library/
+          script: |
+            cd /var/www/approutinetech/dist/magic-library/
+            npm install --omit=dev
+            chmod -R 755 /var/www/approutinetech/dist/magic-library/
