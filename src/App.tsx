@@ -12,6 +12,10 @@ import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AddBook from './views/AddBook';
 import Landing from './views/Landing';
 import SetupProfile from './views/SetupProfile';
+import Maintenance from './views/Maintenance';
+
+// Mude para false para desativar o modo de manutenção
+const MAINTENANCE_MODE = false;
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, needsProfileSetup, loading } = useAuth();
@@ -33,6 +37,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  if (MAINTENANCE_MODE) {
+    return <Maintenance />;
+  }
+
   return (
     <AuthProvider>
       <Router basename={import.meta.env.BASE_URL}>
