@@ -15,14 +15,23 @@ if (process.env.NODE_ENV === "production" || isDist) {
 }
 dotenv.config(); // Fallback for standard .env
 
-const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
+let aiClient = null;
+function getAI() {
+  if (!aiClient) {
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error("GEMINI_API_KEY environment variable is missing. Please configure it.");
     }
+    aiClient = new GoogleGenAI({
+      apiKey: process.env.GEMINI_API_KEY,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
   }
-});
+  return aiClient;
+}
 
 async function startServer() {
   const app = express();
@@ -55,8 +64,8 @@ async function startServer() {
         return res.status(400).json({ error: "Missing query" });
       }
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
+      const response = await getAI().models.generateContent({
+        model: "gemini-2.5-flash",
         contents: `Encontre as informações reais sobre livros que correspondem à seguinte busca: "${query}". Retorne até 3 opções relevantes. Se não tiver certeza, responda o melhor possível.`,
         config: {
           responseMimeType: "application/json",
@@ -124,8 +133,8 @@ async function startServer() {
         return res.status(400).json({ error: "Missing image" });
       }
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
+      const response = await getAI().models.generateContent({
+        model: "gemini-2.5-flash",
         contents: [
           {
             inlineData: {
@@ -167,8 +176,8 @@ async function startServer() {
         return res.status(400).json({ error: "Missing prompt" });
       }
 
-      const response = await ai.models.generateContent({
-        model: "gemini-3.6-flash",
+      const response = await getAI().models.generateContent({
+        model: "gemini-2.5-flash",
         contents: `Com base na seguinte descrição de um personagem mágico: "${prompt}", crie um avatar ilustrado único. Escolha um estilo entre 'bottts', 'avataaars', 'lorelei', 'pixel-art', 'micah' e um seed ideal baseado no texto. Retorne um JSON com: { style: string, seed: string }`,
         config: {
           responseMimeType: "application/json",
