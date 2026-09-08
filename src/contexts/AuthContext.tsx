@@ -10,7 +10,7 @@ import {
   updateProfile
 } from 'firebase/auth';
 import { auth, db } from '../lib/firebase';
-import { collection, query, where, getDocs, doc, setDoc, getDoc, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, setDoc, getDoc, onSnapshot, serverTimestamp, addDoc } from 'firebase/firestore';
 
 interface AuthContextType {
   user: User | null;
@@ -43,6 +43,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       if (currentUser) {
+        // Record access log
+        if (!sessionStorage.getItem('access_recorded_' + currentUser.uid)) {
+          sessionStorage.setItem('access_recorded_' + currentUser.uid, 'true');
+          addDoc(collection(db, 'access_logs'), {
+            userId: currentUser.uid,
+            email: currentUser.email,
+            displayName: currentUser.displayName,
+            accessedAt: serverTimestamp(),
+            userAgent: navigator.userAgent
+          }).catch(err => console.error("Error logging access", err));
+        }
+
         const userRef = doc(db, 'users', currentUser.uid);
         unsubscribeDoc = onSnapshot(userRef, (docSnap) => {
           if (docSnap.exists()) {
