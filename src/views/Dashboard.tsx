@@ -8,6 +8,7 @@ import { TourGuide } from '../components/TourGuide';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, query, where, getDocs, limit, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { useAiSearchLimit } from '../lib/useAiSearchLimit';
 
 export default function Dashboard() {
   const { user } = useAuth();
@@ -19,6 +20,7 @@ export default function Dashboard() {
   const [isSearching, setIsSearching] = useState(false);
   const [searchResult, setSearchResult] = useState<any>(null);
   const [searchError, setSearchError] = useState('');
+  const aiLimit = useAiSearchLimit();
 
   useEffect(() => {
     async function fetchData() {
@@ -79,6 +81,7 @@ export default function Dashboard() {
 
       const data = await res.json();
       setSearchResult(data);
+      aiLimit.incrementSearch();
     } catch (err: any) {
       setSearchError(err.message || 'Erro ao buscar o livro.');
     } finally {
@@ -212,9 +215,19 @@ export default function Dashboard() {
 
         {/* AI Book Search - Refined Integration */}
         <section className="w-full">
-          <h3 className="font-headline-lg-mobile text-primary mb-4 flex items-center gap-2">
-            <Compass className="w-6 h-6 text-tertiary" /> Buscar Livro com IA
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-2">
+            <h3 className="font-headline-lg-mobile text-primary flex items-center gap-2">
+              <Compass className="w-6 h-6 text-tertiary" /> Buscar Livro com IA
+            </h3>
+            <div className="text-sm font-body-sm text-on-surface-variant bg-surface-container-highest py-1 px-4 rounded-full self-start sm:self-auto flex flex-col items-center">
+              <span>{aiLimit.searchesLeft} de {aiLimit.maxSearches} buscas restantes</span>
+              {aiLimit.timeLeft && aiLimit.searchesLeft < aiLimit.maxSearches && (
+                <span className="text-xs opacity-75">
+                  Recarrega em {aiLimit.timeLeft.hours}h {aiLimit.timeLeft.minutes}m
+                </span>
+              )}
+            </div>
+          </div>
           <div className="bg-surface-container rounded-[2rem] p-6 border-2 border-surface-container-highest shadow-sm">
             <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3 mb-4">
               <div className="relative flex-1">
@@ -231,7 +244,7 @@ export default function Dashboard() {
               </div>
               <button
                 type="submit"
-                disabled={isSearching || !searchQuery.trim()}
+                disabled={isSearching || !searchQuery.trim() || !aiLimit.canSearch}
                 className="bg-tertiary text-on-tertiary font-label-lg px-8 py-4 rounded-full shadow-sm hover:scale-105 transition-transform active:scale-95 disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2"
               >
                 {isSearching ? 'Buscando...' : 'Buscar'}
