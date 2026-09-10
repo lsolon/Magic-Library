@@ -1,36 +1,36 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #0c6780;
-  --color-primary-container: #87ceeb;
-  --color-on-primary-container: #005870;
-  --color-secondary: #705d00;
-  --color-secondary-container: #fcd400;
-  --color-on-secondary-container: #6e5c00;
-  --color-tertiary: #006e1c;
-  --color-tertiary-container: #76da75;
-  --color-on-tertiary-container: #005f17;
+    --color-primary: #00e5ff;
+  --color-primary-container: #003d4d;
+  --color-on-primary-container: #b3f7ff;
+  --color-secondary: #ffc107;
+  --color-secondary-container: #4d3900;
+  --color-on-secondary-container: #ffe082;
+  --color-tertiary: #b057fa;
+  --color-tertiary-container: #3c0966;
+  --color-on-tertiary-container: #e8baff;
   
-  --color-background: #fefccf;
-  --color-on-background: #1d1d03;
-  --color-surface: #fefccf;
-  --color-on-surface: #1d1d03;
-  --color-surface-variant: #e6e5b9;
-  --color-on-surface-variant: #3f484c;
+  --color-background: #090a1e;
+  --color-on-background: #e0e0f5;
+  --color-surface: #151538;
+  --color-on-surface: #e0e0f5;
+  --color-surface-variant: #262654;
+  --color-on-surface-variant: #b0b0d1;
   
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f8f6c9;
-  --color-surface-container: #f2f0c4;
-  --color-surface-container-high: #eceabe;
-  --color-surface-container-highest: #e6e5b9;
+  --color-surface-container-lowest: #050614;
+  --color-surface-container-low: #0f102b;
+  --color-surface-container: #1a1a40;
+  --color-surface-container-high: #242454;
+  --color-surface-container-highest: #31316b;
   
-  --color-outline: #6f787d;
-  --color-outline-variant: #bfc8cd;
+  --color-outline: #6b6b9e;
+  --color-outline-variant: #3a3a66;
   
-  --color-error: #ba1a1a;
-  --color-error-container: #ffdad6;
+  --color-error: #ff5252;
+  --color-error-container: #4d0000;
   --color-on-error: #ffffff;
-  --color-on-error-container: #93000a;
+  --color-on-error-container: #ffdad6;
 
   --color-primary-fixed: #baeaff;
   --color-primary-fixed-dim: #89d0ed;
@@ -55,7 +55,11 @@
   body {
     font-family: var(--font-quicksand);
     background-color: var(--color-background);
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(13, 85, 148, 0.2), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(105, 33, 168, 0.2), transparent 25%);
     color: var(--color-on-background);
+    min-height: 100vh;
   }
 }
 
@@ -106,14 +110,14 @@
   }
 
   .glass-panel {
-    background: rgba(255, 255, 255, 0.4);
+    background: rgba(30, 30, 80, 0.5);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 2px solid rgba(135, 206, 235, 0.5);
+    border: 1px solid rgba(0, 229, 255, 0.2);
   }
 
   .magic-shadow {
-    box-shadow: 0 10px 25px -5px rgba(12, 103, 128, 0.15), 0 8px 10px -6px rgba(12, 103, 128, 0.1);
+    box-shadow: 0 10px 25px -5px rgba(0, 229, 255, 0.15), 0 8px 10px -6px rgba(0, 229, 255, 0.1);
   }
 
   .progress-glow {
@@ -121,8 +125,8 @@
   }
   
   @keyframes pulse-glow {
-    0% { box-shadow: 0 0 5px rgba(135, 206, 235, 0.5); }
-    100% { box-shadow: 0 0 15px rgba(135, 206, 235, 1); }
+    0% { box-shadow: 0 0 5px rgba(0, 229, 255, 0.3); }
+    100% { box-shadow: 0 0 15px rgba(0, 229, 255, 0.8); }
   }
 
   .shimmer {

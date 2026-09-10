@@ -3,7 +3,7 @@ import { Wand2, Sparkles } from 'lucide-react';
 
 export default function Maintenance() {
   return (
-    <div className="min-h-screen bg-[#fefccf] text-[#1d1d03] relative overflow-hidden font-body-lg flex items-center justify-center">
+    <div className="min-h-screen bg-background text-on-background relative overflow-hidden font-body-lg flex items-center justify-center">
       {/* Elementos Mágicos de Fundo */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-primary-container/30 blur-[80px] animate-pulse" style={{ animationDuration: '8s' }}></div>

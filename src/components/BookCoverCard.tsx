@@ -88,7 +88,7 @@ export function BookCoverCard({
               />
             ) : (
               <div 
-                className={`relative ${onTitleEdit ? 'cursor-pointer hover:bg-white/10 rounded p-1' : ''}`}
+                className={`relative ${onTitleEdit ? 'cursor-pointer hover:bg-surface-container-high/60 rounded p-1' : ''}`}
                 onClick={() => onTitleEdit && setIsEditingTitle(true)}
                 title={onTitleEdit ? "Clique para editar o título" : undefined}
               >
@@ -117,7 +117,7 @@ export function BookCoverCard({
 
       {/* Title Overlay Banner when cover image is present */}
       {effectiveCoverUrl && !imageError && (
-        <div className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-2 pt-6 text-white ${showUserAvatar || ownerName ? 'pb-7' : ''}`}>
+        <div className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-2 pt-6 text-on-surface ${showUserAvatar || ownerName ? 'pb-7' : ''}`}>
           <h4 className="font-headline-sm font-bold text-xs line-clamp-2 drop-shadow-md leading-tight">{title}</h4>
           {author && <p className="font-body-xs text-white/80 text-[10px] line-clamp-1 mt-0.5">{author}</p>}
         </div>
@@ -129,7 +129,7 @@ export function BookCoverCard({
           className="absolute bottom-1.5 right-1.5 z-20 flex items-center gap-1.5 bg-[#F6F5E3] text-[#135468] border border-[#135468]/30 px-2 py-0.5 rounded-full shadow-md backdrop-blur-md max-w-[90%]"
           title={`Guardião(ã) do livro: ${rawName}`}
         >
-          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full overflow-hidden bg-primary-container border border-white shrink-0 flex items-center justify-center">
+          <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full overflow-hidden bg-primary-container border border-primary/50 shrink-0 flex items-center justify-center">
             {effectiveAvatar ? (
               <img src={effectiveAvatar} alt={rawName} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
             ) : (

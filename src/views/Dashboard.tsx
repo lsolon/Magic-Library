@@ -101,11 +101,11 @@ export default function Dashboard() {
         </section>
 
         {/* Missão do Dia (Hero Card) */}
-        <section className="w-full rounded-[2rem] bg-gradient-to-br from-primary-container to-inverse-primary p-6 shadow-[0_8px_30px_rgba(12,103,128,0.2)] relative overflow-hidden group">
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/20 rounded-full blur-xl pointer-events-none"></div>
+        <section className="w-full rounded-[2rem] bg-gradient-to-br from-primary-container to-inverse-primary p-6 shadow-[0_8px_30px_rgba(0, 229, 255, 0.2)] relative overflow-hidden group">
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-surface-container-high/60 rounded-full blur-xl pointer-events-none"></div>
           <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary-container/30 rounded-full blur-2xl pointer-events-none"></div>
           <div className="relative z-10 flex flex-col items-center text-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-white/50 backdrop-blur-sm flex items-center justify-center shadow-inner float-anim">
+            <div className="w-16 h-16 rounded-full bg-surface-container-high/60 backdrop-blur-sm flex items-center justify-center shadow-inner float-anim">
               <BookOpen className="w-8 h-8 text-primary" />
             </div>
             <div>

@@ -842,7 +842,7 @@ export default function Clubs() {
                           e.stopPropagation();
                           handleRemoveBook(book);
                         }}
-                        className="absolute top-2 left-2 bg-error/15 hover:bg-error text-error hover:text-white p-2 rounded-full shadow-xs transition-all hover:scale-110 cursor-pointer z-10"
+                        className="absolute top-2 left-2 bg-error/15 hover:bg-error text-error hover:text-on-surface p-2 rounded-full shadow-xs transition-all hover:scale-110 cursor-pointer z-10"
                         title="Remover este livro (mover para Indisponíveis)"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -855,7 +855,7 @@ export default function Clubs() {
                       </div>
                     )}
                     {isBorrowed && isReading && (
-                      <div className="absolute -top-3 right-4 bg-tertiary text-on-tertiary font-label-lg px-3 py-1 rounded-full border-2 border-white flex items-center gap-1.5 text-xs shadow-md font-bold">
+                      <div className="absolute -top-3 right-4 bg-tertiary text-on-tertiary font-label-lg px-3 py-1 rounded-full border-2 border-primary/50 flex items-center gap-1.5 text-xs shadow-md font-bold">
                         <Handshake className="w-4 h-4 fill-current" /> Você Pegou Emprestado!
                       </div>
                     )}
@@ -940,7 +940,7 @@ export default function Clubs() {
                                         e.stopPropagation();
                                         handleOwnerReturnToMe(book);
                                       }}
-                                      className="w-full py-2.5 px-4 rounded-xl bg-[#135468] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#0f4354] active:scale-95 transition-all cursor-pointer shadow-md disabled:opacity-50 disabled:cursor-not-allowed relative z-50"
+                                      className="w-full py-2.5 px-4 rounded-xl bg-[#135468] text-on-surface font-bold text-xs flex items-center justify-center gap-2 hover:bg-[#0f4354] active:scale-95 transition-all cursor-pointer shadow-md disabled:opacity-50 disabled:cursor-not-allowed relative z-50"
                                     >
                                       {isProcessingDecision === book.id ? (
                                         <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -1016,7 +1016,7 @@ export default function Clubs() {
                               </button>
                               <button
                                 onClick={() => handleRemoveBook(book)}
-                                className="py-2 px-3 rounded-xl bg-error/15 hover:bg-error text-error hover:text-white text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer border border-error/30"
+                                className="py-2 px-3 rounded-xl bg-error/15 hover:bg-error text-error hover:text-on-surface text-xs font-bold flex items-center justify-center gap-1 transition-all cursor-pointer border border-error/30"
                                 title="Remover este livro"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />

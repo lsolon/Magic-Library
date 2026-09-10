@@ -160,20 +160,20 @@ export default function Library() {
         {/* Search Bar (Bubble Style) */}
         <div className="mb-8 relative slide-down">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-            <Search className="text-[#0c6780] w-6 h-6" />
+            <Search className="text-primary w-6 h-6" />
           </div>
           <input 
             type="text" 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Que aventura vamos ler hoje?" 
-            className="w-full bg-[#fefccf] border-2 border-[#87ceeb]/50 rounded-full py-4 pl-12 pr-6 font-body-lg text-body-lg text-[#1d1d03] placeholder-[#6f787d]/60 focus:outline-none focus:border-[#0c6780] focus:ring-4 focus:ring-[#87ceeb]/30 transition-all magic-shadow" 
+            className="w-full bg-background border-2 border-primary-container/50 rounded-full py-4 pl-12 pr-6 font-body-lg text-body-lg text-on-background placeholder-outline/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary-container/30 transition-all magic-shadow" 
           />
         </div>
 
-        <h2 className="font-headline-lg-mobile text-[#1d1d03] mb-6 flex items-center gap-2 slide-up">
+        <h2 className="font-headline-lg-mobile text-on-background mb-6 flex items-center gap-2 slide-up">
           Minha Floresta de Livros
-          <Sparkles className="w-6 h-6 text-[#76da75]" />
+          <Sparkles className="w-6 h-6 text-tertiary-container" />
         </h2>
 
         {/* Filters (Pill/Bubble Style) */}
@@ -185,8 +185,8 @@ export default function Library() {
               className={cn(
                 "snap-start shrink-0 px-6 py-2 rounded-full font-label-lg text-xs hover:scale-105 transition-all cursor-pointer shadow-sm border-2",
                 activeFilter === filter.value
-                  ? "bg-[#fcd400] text-[#6e5c00] border-white/50 magic-shadow" 
-                  : "bg-[#eceabe] text-[#3f484c] border-transparent"
+                  ? "bg-secondary-container text-on-secondary-container border-white/50 magic-shadow" 
+                  : "bg-surface-container-high text-on-surface-variant border-transparent"
               )}
             >
               {filter.label}
@@ -205,8 +205,8 @@ export default function Library() {
                 exit={{ opacity: 0 }}
                 className="col-span-full text-center py-20 flex flex-col items-center gap-4"
               >
-                <div className="w-12 h-12 border-4 border-[#0c6780]/20 border-t-[#0c6780] rounded-full animate-spin" />
-                <p className="font-body-lg text-[#3f484c] italic">Buscando na floresta mágica...</p>
+                <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+                <p className="font-body-lg text-on-surface-variant italic">Buscando na floresta mágica...</p>
               </motion.div>
             ) : filteredBooks.length === 0 ? (
               <motion.div 
@@ -214,26 +214,26 @@ export default function Library() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="col-span-full text-center py-12 px-6 bg-[#f2f0c4]/60 rounded-3xl border-2 border-dashed border-[#bfc8cd]/40 max-w-lg mx-auto my-4 flex flex-col items-center"
+                className="col-span-full text-center py-12 px-6 bg-surface-container/60 rounded-3xl border-2 border-dashed border-outline-variant/40 max-w-lg mx-auto my-4 flex flex-col items-center"
               >
-                <div className="w-16 h-16 rounded-full bg-[#f2f0c4] flex items-center justify-center mb-4 text-[#0c6780] shadow-inner">
+                <div className="w-16 h-16 rounded-full bg-surface-container flex items-center justify-center mb-4 text-primary shadow-inner">
                   <Compass className="w-8 h-8" />
                 </div>
-                <h3 className="font-headline-sm font-bold text-[#1d1d03] mb-2">
+                <h3 className="font-headline-sm font-bold text-on-background mb-2">
                   {activeFilter === 'Emprestados'
                     ? 'Nenhum livro emprestado'
                     : activeFilter === 'Compartilhei'
                     ? 'Nenhum livro compartilhado'
                     : 'A floresta está silenciosa...'}
                 </h3>
-                <p className="text-xs text-[#3f484c] max-w-xs mb-6">
+                <p className="text-xs text-on-surface-variant max-w-xs mb-6">
                   {activeFilter === 'Emprestados'
                     ? 'Livros que você pedir emprestado aos seus colegas nos Grupos aparecerão aqui.'
                     : 'Adicione livros à sua estante para acompanhar a leitura e compartilhar com seus amigos!'}
                 </p>
                 <Link
                   to="/add-book"
-                  className="bg-[#0c6780] text-white font-label-lg px-6 py-3 rounded-full text-xs font-bold hover:scale-105 transition-transform flex items-center gap-2 shadow-lg"
+                  className="bg-primary text-on-surface font-label-lg px-6 py-3 rounded-full text-xs font-bold hover:scale-105 transition-transform flex items-center gap-2 shadow-lg"
                 >
                   <Plus className="w-4 h-4" />
                   <span>Cadastrar Nova Aventura</span>
@@ -256,12 +256,12 @@ export default function Library() {
                       layout
                       className="relative group/card"
                     >
-                      <Link to={`/book/${userBook.bookId}`} className="bg-white rounded-xl p-3 border-2 border-[#baeaff] magic-shadow hover:scale-[1.03] transition-all flex flex-col items-center relative overflow-hidden group">
+                      <Link to={`/book/${userBook.bookId}`} className="bg-surface-container-low rounded-xl p-3 border-2 border-[#baeaff] magic-shadow hover:scale-[1.03] transition-all flex flex-col items-center relative overflow-hidden group">
                         
                         {/* Status Badge (Star in Top Right) */}
                         <div className={cn(
                           "absolute top-2 right-2 rounded-full w-8 h-8 flex items-center justify-center shadow-sm z-10 transition-transform group-hover:scale-110",
-                          isLido ? "bg-[#76da75] text-[#005f17]" : "bg-[#fcd400] text-[#6e5c00]"
+                          isLido ? "bg-tertiary-container text-on-tertiary-container" : "bg-secondary-container text-on-secondary-container"
                         )}>
                           {isLido ? (
                             <BookOpen className="w-4 h-4 fill-current" />
@@ -272,13 +272,13 @@ export default function Library() {
 
                         {/* Special Context Badge (Top Left - Borrowed/Shared) */}
                         {isBorrowed && (
-                          <div className="absolute top-2 left-2 bg-[#76da75] text-[#005f17] rounded-full px-2 py-0.5 text-[9px] font-bold shadow-xs z-10 flex items-center gap-1 border border-white/40">
+                          <div className="absolute top-2 left-2 bg-tertiary-container text-on-tertiary-container rounded-full px-2 py-0.5 text-[9px] font-bold shadow-xs z-10 flex items-center gap-1 border border-white/40">
                             <Handshake className="w-3 h-3" />
                             <span className="truncate max-w-[60px]">Peguei de @{userBook.bookDetails?.ownerName?.split(' ')[0]}</span>
                           </div>
                         )}
 
-                        <div className="w-full h-40 rounded-lg overflow-visible mb-3 relative bg-[#87ceeb]/10">
+                        <div className="w-full h-40 rounded-lg overflow-visible mb-3 relative bg-primary-container/10">
                           <BookCoverCard 
                             coverUrl={userBook.bookDetails?.coverUrl}
                             title={userBook.bookDetails?.title || 'Livro Desconhecido'}
@@ -287,20 +287,20 @@ export default function Library() {
                           />
                         </div>
 
-                        <h3 className="font-body-lg text-body-lg text-center leading-tight mb-2 line-clamp-2 w-full font-bold text-[#1d1d03] group-hover:text-[#0c6780] transition-colors px-1">
+                        <h3 className="font-body-lg text-body-lg text-center leading-tight mb-2 line-clamp-2 w-full font-bold text-on-background group-hover:text-primary transition-colors px-1">
                           {userBook.bookDetails?.title}
                         </h3>
                         
                         <div className="w-full mt-auto">
-                          <div className="flex justify-between font-label-lg text-[#6f787d] mb-1.5 text-[10px] uppercase tracking-wider">
+                          <div className="flex justify-between font-label-lg text-outline mb-1.5 text-[10px] uppercase tracking-wider">
                             <span>{isLido ? 'Concluído!' : 'Lendo...'}</span>
-                            <span className={isLido ? "text-[#006e1c] font-bold" : "font-bold"}>{userBook.progress}%</span>
+                            <span className={isLido ? "text-tertiary font-bold" : "font-bold"}>{userBook.progress}%</span>
                           </div>
-                          <div className="h-2 w-full bg-[#e6e5b9] rounded-full overflow-hidden">
+                          <div className="h-2 w-full bg-surface-variant rounded-full overflow-hidden">
                             <div 
                               className={cn(
                                 "h-full rounded-full transition-all duration-700 ease-out", 
-                                isLido ? "bg-[#76da75]" : "bg-[#87ceeb] progress-glow"
+                                isLido ? "bg-tertiary-container" : "bg-primary progress-glow"
                               )} 
                               style={{ width: `${userBook.progress}%` }}
                             ></div>
@@ -315,7 +315,7 @@ export default function Library() {
                           e.stopPropagation();
                           setBookToDelete(userBook);
                         }}
-                        className="absolute -top-1 -left-1 bg-white hover:bg-red-50 text-error p-2 rounded-full shadow-lg z-20 border border-error/20 opacity-0 group-hover/card:opacity-100 transition-all hover:scale-110 cursor-pointer"
+                        className="absolute -top-1 -left-1 bg-surface-container-low hover:bg-red-50 text-error p-2 rounded-full shadow-lg z-20 border border-error/20 opacity-0 group-hover/card:opacity-100 transition-all hover:scale-110 cursor-pointer"
                         title="Apagar Livro"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
@@ -331,12 +331,12 @@ export default function Library() {
                 >
                   <Link 
                     to="/add-book" 
-                    className="bg-[#f2f0c4]/40 border-2 border-dashed border-[#bfc8cd] rounded-xl p-3 flex flex-col items-center justify-center min-h-[240px] hover:bg-[#f2f0c4]/60 hover:border-[#0c6780] transition-all hover:scale-[1.03] group"
+                    className="bg-surface-container/40 border-2 border-dashed border-outline-variant rounded-xl p-3 flex flex-col items-center justify-center min-h-[240px] hover:bg-surface-container/60 hover:border-primary transition-all hover:scale-[1.03] group"
                   >
-                    <div className="w-14 h-14 rounded-full bg-[#f2f0c4] flex items-center justify-center mb-4 group-hover:bg-[#87ceeb] group-hover:text-white transition-all shadow-sm">
-                      <Plus className="w-7 h-7 text-[#6f787d] group-hover:text-white" />
+                    <div className="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-container group-hover:text-on-surface transition-all shadow-sm">
+                      <Plus className="w-7 h-7 text-outline group-hover:text-on-surface" />
                     </div>
-                    <span className="font-body-md text-[#3f484c] text-center font-bold px-2">Adicionar Nova Aventura</span>
+                    <span className="font-body-md text-on-surface-variant text-center font-bold px-2">Adicionar Nova Aventura</span>
                   </Link>
                 </motion.div>
               ]
@@ -347,7 +347,7 @@ export default function Library() {
         {/* Floating Action Button (FAB) */}
         <button 
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-28 right-6 w-14 h-14 bg-[#fcd400] text-[#6e5c00] rounded-full flex items-center justify-center magic-shadow hover:scale-110 active:scale-95 transition-all z-40 group shadow-[0_4px_15px_rgba(252,212,0,0.4)]"
+          className="fixed bottom-28 right-6 w-14 h-14 bg-secondary-container text-on-secondary-container rounded-full flex items-center justify-center magic-shadow hover:scale-110 active:scale-95 transition-all z-40 group shadow-[0_4px_15px_rgba(252,212,0,0.4)]"
         >
           <Sparkles className="w-7 h-7 group-hover:rotate-12 transition-transform" />
         </button>
@@ -377,7 +377,7 @@ export default function Library() {
               <button
                 onClick={confirmDelete}
                 disabled={isDeleting}
-                className="flex-1 py-2.5 px-4 rounded-xl bg-error text-white font-label-lg transition-transform hover:scale-105 active:scale-95 shadow-md flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-error text-on-surface font-label-lg transition-transform hover:scale-105 active:scale-95 shadow-md flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
               >
                 {isDeleting ? 'Apagando...' : 'Apagar'}
               </button>

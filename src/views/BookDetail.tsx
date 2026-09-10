@@ -202,14 +202,14 @@ export default function BookDetail() {
   };
 
   if (loading) {
-    return <div className="min-h-screen bg-background flex items-center justify-center font-body-lg text-[#0c6780]">Carregando magia...</div>;
+    return <div className="min-h-screen bg-background flex items-center justify-center font-body-lg text-primary">Carregando magia...</div>;
   }
 
   if (!book) {
     return (
-      <div className="min-h-screen bg-background flex flex-col items-center justify-center font-body-lg text-[#0c6780]">
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center font-body-lg text-primary">
         <p className="mb-6 font-headline-lg-mobile">Livro não encontrado.</p>
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 bg-[#0c6780] text-white font-label-lg px-6 py-3 rounded-full hover:scale-105 transition-transform shadow-sm">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-2 bg-primary text-on-surface font-label-lg px-6 py-3 rounded-full hover:scale-105 transition-transform shadow-sm">
           <ArrowLeft className="w-5 h-5" />
           Voltar
         </button>
@@ -218,32 +218,32 @@ export default function BookDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fefccf] text-[#1d1d03] relative overflow-x-hidden selection:bg-[#fcd400] selection:text-[#6e5c00]">
+    <div className="min-h-screen bg-background text-on-background relative overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
       {/* Playful Background Shapes */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none opacity-40">
         <motion.div 
           animate={{ scale: [1, 1.1, 1], opacity: [0.7, 0.4, 0.7] }}
           transition={{ duration: 5, repeat: Infinity }}
-          className="absolute top-[-10%] left-[-5%] w-64 h-64 bg-[#87ceeb] rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute top-[-10%] left-[-5%] w-64 h-64 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl"
         />
         <motion.div 
           animate={{ y: [0, -20, 0] }}
           transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-          className="absolute top-[20%] right-[-10%] w-80 h-80 bg-[#fcd400] rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute top-[20%] right-[-10%] w-80 h-80 bg-secondary-container rounded-full mix-blend-multiply filter blur-3xl"
         />
         <motion.div 
           animate={{ y: [0, -15, 0] }}
           transition={{ duration: 6, repeat: Infinity, delay: 2 }}
-          className="absolute bottom-[-10%] left-[20%] w-72 h-72 bg-[#76da75] rounded-full mix-blend-multiply filter blur-3xl"
+          className="absolute bottom-[-10%] left-[20%] w-72 h-72 bg-tertiary-container rounded-full mix-blend-multiply filter blur-3xl"
         />
       </div>
 
-      <header className="w-full top-0 sticky z-50 bg-[#fefccf]/80 backdrop-blur-md shadow-[0_8px_30px_rgb(12,103,128,0.1)] transition-all duration-300 ease-out">
+      <header className="w-full top-0 sticky z-50 bg-background/80 backdrop-blur-md shadow-[0_8px_30px_rgb(12,103,128,0.1)] transition-all duration-300 ease-out">
         <div className="flex justify-between items-center px-6 py-4 w-full max-w-[1200px] mx-auto">
           <button 
             onClick={() => navigate(-1)} 
             aria-label="Voltar" 
-            className="flex items-center justify-center w-12 h-12 rounded-full bg-[#eceabe] text-[#0c6780] hover:scale-110 transition-transform shadow-sm cursor-pointer"
+            className="flex items-center justify-center w-12 h-12 rounded-full bg-surface-container-high text-primary hover:scale-110 transition-transform shadow-sm cursor-pointer"
           >
             <ArrowLeft className="w-7 h-7" />
           </button>
@@ -254,10 +254,10 @@ export default function BookDetail() {
               className="w-10 h-10 rounded-full shadow-sm" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDva-qK4dyshafW3iHriK_oaoWDV0E5SDZxy3pRs9l10h-O-HsKPwBuNWz4Prq3eOOaSdnkLKpNrmXPhgq97ixztTflLeRNdKbmsb26CcgaTduzvAetWhhndOzY_Lzi4kE-YnxIfiohbpM6LGc-h1go6Xb-IwyzmGtQx2D0B_Z5Eg1jSJR4tTUZ-c91HTq35mzNbENb7_7UeeFiL3Xy1TXAC5OYV4KGNKHa8SJlmnnt_Xz9oUkgLRpTr8qgTEN3Rnk4yAhoWV3WwlNA" 
             />
-            <span className="font-headline-lg-mobile text-[#0c6780] drop-shadow-sm">Magic Library</span>
+            <span className="font-headline-lg-mobile text-primary drop-shadow-sm">Magic Library</span>
           </div>
 
-          <button className="w-12 h-12 rounded-full bg-[#87ceeb] text-white flex items-center justify-center hover:scale-110 transition-transform overflow-hidden shadow-sm border-2 border-white">
+          <button className="w-12 h-12 rounded-full bg-primary-container text-on-surface flex items-center justify-center hover:scale-110 transition-transform overflow-hidden shadow-sm border-2 border-primary/50">
             <img 
               alt="Avatar" 
               className="w-full h-full object-cover" 
@@ -276,8 +276,8 @@ export default function BookDetail() {
             animate={{ opacity: 1, y: 0 }}
             className="relative w-full max-w-sm mx-auto md:mx-0 float-anim"
           >
-            <div className="absolute inset-0 bg-[#e9c400]/30 rounded-[2rem] blur-2xl transform scale-105"></div>
-            <div className="relative z-10 aspect-[3/4] w-full rounded-[2rem] border-[3px] border-[#87ceeb] bg-white shadow-[0_20px_50px_rgba(12,103,128,0.2)] overflow-hidden">
+            <div className="absolute inset-0 bg-secondary-fixed-dim/30 rounded-[2rem] blur-2xl transform scale-105"></div>
+            <div className="relative z-10 aspect-[3/4] w-full rounded-[2rem] border-[3px] border-primary-container bg-surface-container-low shadow-[0_20px_50px_rgba(0, 229, 255, 0.2)] overflow-hidden">
               <BookCoverCard 
                 coverUrl={book.coverUrl}
                 title={book.title}
@@ -286,7 +286,7 @@ export default function BookDetail() {
                 onTitleEdit={handleTitleEdit}
               />
               {book.status === 'available' && (
-                <div className="absolute top-4 right-4 bg-[#006e1c] text-white font-label-lg text-xs px-4 py-1.5 rounded-full shadow-md transform rotate-3 flex items-center gap-1">
+                <div className="absolute top-4 right-4 bg-tertiary text-on-surface font-label-lg text-xs px-4 py-1.5 rounded-full shadow-md transform rotate-3 flex items-center gap-1">
                   <Sparkles className="w-3.5 h-3.5 fill-current" /> Novo
                 </div>
               )}
@@ -296,42 +296,42 @@ export default function BookDetail() {
           {/* Book Info */}
           <div className="flex flex-col space-y-6 text-center md:text-left">
             <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 bg-[#87ceeb]/30 text-[#005870] px-4 py-2 rounded-full font-label-lg text-sm w-fit mx-auto md:mx-0">
+              <div className="inline-flex items-center gap-2 bg-primary-container/30 text-on-primary-container px-4 py-2 rounded-full font-label-lg text-sm w-fit mx-auto md:mx-0">
                 <LayoutGrid className="w-4 h-4" />
                 {book.category || 'Aventura Épica'}
               </div>
-              <h1 className="font-headline-xl text-[#0c6780] drop-shadow-sm leading-tight">{book.title}</h1>
-              <p className="font-body-lg text-[#3f484c]">Por {book.author}</p>
+              <h1 className="font-headline-xl text-primary drop-shadow-sm leading-tight">{book.title}</h1>
+              <p className="font-body-lg text-on-surface-variant">Por {book.author}</p>
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-              <div className="bg-white/40 backdrop-blur-md border-2 border-[#87ceeb]/50 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
-                <div className="w-10 h-10 rounded-full bg-[#fcd400] text-[#6e5c00] flex items-center justify-center">
+              <div className="bg-surface-container-high/60 backdrop-blur-md border-2 border-primary-container/50 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
                   <Star className="w-5 h-5 fill-current" />
                 </div>
                 <div className="text-left">
-                  <div className="font-label-lg text-xs text-[#3f484c]">Dificuldade</div>
-                  <div className="font-body-md text-[#0c6780] font-bold">{book.difficulty || 'Iniciante'}</div>
+                  <div className="font-label-lg text-xs text-on-surface-variant">Dificuldade</div>
+                  <div className="font-body-md text-primary font-bold">{book.difficulty || 'Iniciante'}</div>
                 </div>
               </div>
-              <div className="bg-white/40 backdrop-blur-md border-2 border-[#87ceeb]/50 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
-                <div className="w-10 h-10 rounded-full bg-[#76da75] text-[#005f17] flex items-center justify-center">
+              <div className="bg-surface-container-high/60 backdrop-blur-md border-2 border-primary-container/50 px-5 py-3 rounded-2xl flex items-center gap-3 shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div className="text-left">
-                  <div className="font-label-lg text-xs text-[#3f484c]">Tempo Mágico</div>
-                  <div className="font-body-md text-[#0c6780] font-bold">15 min</div>
+                  <div className="font-label-lg text-xs text-on-surface-variant">Tempo Mágico</div>
+                  <div className="font-body-md text-primary font-bold">15 min</div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#f8f6c9] p-6 rounded-[2rem] border-2 border-[#e6e5b9] shadow-sm relative">
-              <Quote className="absolute top-4 right-4 text-[#87ceeb] opacity-30 w-10 h-10 transform -rotate-12" />
-              <h2 className="font-body-lg text-[#0c6780] mb-2 flex items-center gap-2 font-bold">
-                <Sparkles className="w-5 h-5 text-[#705d00] fill-[#705d00]" />
+            <div className="bg-surface-container-low p-6 rounded-[2rem] border-2 border-surface-variant shadow-sm relative">
+              <Quote className="absolute top-4 right-4 text-primary-container opacity-30 w-10 h-10 transform -rotate-12" />
+              <h2 className="font-body-lg text-primary mb-2 flex items-center gap-2 font-bold">
+                <Sparkles className="w-5 h-5 text-secondary fill-secondary" />
                 Sobre a Aventura
               </h2>
-              <p className="font-body-md text-[#3f484c] leading-relaxed">
+              <p className="font-body-md text-on-surface-variant leading-relaxed">
                 {book.synopsis || "Prepare-se para uma jornada incrível! Uma história mágica que vai levar sua imaginação para novos mundos fantásticos. Você está pronto para começar?"}
               </p>
             </div>
@@ -340,7 +340,7 @@ export default function BookDetail() {
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button 
                 onClick={scrollToProgress}
-                className="flex-1 bg-[#fcd400] text-[#6e5c00] font-headline-lg-mobile md:text-lg py-4 px-6 rounded-full shadow-[0_8px_0_rgba(112,93,0,0.2)] hover:translate-y-1 hover:shadow-[0_4px_0_rgba(112,93,0,0.2)] active:translate-y-2 active:shadow-none transition-all flex items-center justify-center gap-2 group relative overflow-hidden"
+                className="flex-1 bg-secondary-container text-on-secondary-container font-headline-lg-mobile md:text-lg py-4 px-6 rounded-full shadow-[0_8px_0_rgba(112,93,0,0.2)] hover:translate-y-1 hover:shadow-[0_4px_0_rgba(112,93,0,0.2)] active:translate-y-2 active:shadow-none transition-all flex items-center justify-center gap-2 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 shimmer pointer-events-none"></div>
                 <BookOpen className="w-6 h-6 group-hover:scale-110 transition-transform fill-current" />
@@ -349,7 +349,7 @@ export default function BookDetail() {
               
               <Link 
                 to="/profile"
-                className="flex-1 bg-[#0c6780] text-white font-headline-lg-mobile md:text-lg py-4 px-6 rounded-full shadow-[0_8px_0_rgba(0,77,98,0.3)] hover:translate-y-1 hover:shadow-[0_4px_0_rgba(0,77,98,0.3)] active:translate-y-2 active:shadow-none transition-all flex items-center justify-center gap-2 group"
+                className="flex-1 bg-primary text-on-surface font-headline-lg-mobile md:text-lg py-4 px-6 rounded-full shadow-[0_8px_0_rgba(0,77,98,0.3)] hover:translate-y-1 hover:shadow-[0_4px_0_rgba(0,77,98,0.3)] active:translate-y-2 active:shadow-none transition-all flex items-center justify-center gap-2 group"
               >
                 <Package className="w-6 h-6 group-hover:rotate-12 transition-transform" />
                 Ver Tesouros
@@ -362,24 +362,24 @@ export default function BookDetail() {
                 <motion.div 
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
-                  className="bg-white/60 backdrop-blur-sm p-6 rounded-[2rem] border-2 border-[#fcd400] shadow-sm space-y-4"
+                  className="bg-surface-container-high/60 backdrop-blur-sm p-6 rounded-[2rem] border-2 border-secondary-container shadow-sm space-y-4"
                 >
                   <div className="flex items-center justify-between">
-                    <h3 className="font-body-lg text-[#0c6780] font-bold flex items-center gap-2">
-                      <Bookmark className="w-5 h-5 text-[#705d00]" /> Meu Progresso ({userBook.progress}%)
+                    <h3 className="font-body-lg text-primary font-bold flex items-center gap-2">
+                      <Bookmark className="w-5 h-5 text-secondary" /> Meu Progresso ({userBook.progress}%)
                     </h3>
                     {userBook.status === 'Lido' && (
-                      <span className="bg-[#76da75] text-[#005f17] px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
+                      <span className="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
                         <CheckCircle2 className="w-3.5 h-3.5" /> Concluído
                       </span>
                     )}
                   </div>
 
-                  <div className="w-full bg-[#e6e5b9] rounded-full h-3 overflow-hidden shadow-inner">
+                  <div className="w-full bg-surface-variant rounded-full h-3 overflow-hidden shadow-inner">
                     <div 
                       className={cn(
                         "h-full rounded-full transition-all duration-700 ease-out",
-                        userBook.status === 'Lido' ? "bg-[#006e1c]" : "bg-[#87ceeb] progress-glow"
+                        userBook.status === 'Lido' ? "bg-tertiary" : "bg-primary progress-glow"
                       )}
                       style={{ width: `${userBook.progress}%` }}
                     ></div>
@@ -392,12 +392,12 @@ export default function BookDetail() {
                         type="number" 
                         value={pagesRead}
                         onChange={(e) => setPagesRead(e.target.value === '' ? '' : Number(e.target.value))}
-                        className="w-full bg-white border-2 border-[#e6e5b9] rounded-2xl py-3 px-4 font-body-md text-[#1d1d03] focus:outline-none focus:border-[#0c6780] shadow-sm"
+                        className="w-full bg-surface-container-low border-2 border-surface-variant rounded-2xl py-3 px-4 font-body-md text-on-background focus:outline-none focus:border-primary shadow-sm"
                         placeholder="Páginas lidas"
                         min="0"
                         max={book.totalPages}
                       />
-                      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-[#6f787d] font-bold">
+                      <div className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-outline font-bold">
                         de {book.totalPages}
                       </div>
                     </div>
@@ -405,7 +405,7 @@ export default function BookDetail() {
                     <button 
                       onClick={handleUpdateProgress}
                       disabled={isSaving || pagesRead === ''}
-                      className="bg-[#0c6780] text-white font-label-lg py-3.5 px-6 rounded-2xl shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
+                      className="bg-primary text-on-surface font-label-lg py-3.5 px-6 rounded-2xl shadow-md hover:scale-105 active:scale-95 transition-all flex items-center gap-2 disabled:opacity-50 cursor-pointer"
                     >
                       <Save className="w-4 h-4" />
                       {isSaving ? 'Salvando...' : 'Salvar'}
@@ -419,29 +419,29 @@ export default function BookDetail() {
             {userBook && (
               <div className="pt-4 flex flex-col gap-3">
                  {book.ownerId === user?.uid && (
-                   <div className="p-5 bg-white/40 border-2 border-[#87ceeb]/40 rounded-3xl flex flex-col gap-3">
+                   <div className="p-5 bg-surface-container-high/60 border-2 border-primary-container/40 rounded-3xl flex flex-col gap-3">
                      <div className="flex items-center justify-between">
-                        <h4 className="font-body-md text-[#0c6780] font-bold flex items-center gap-2">
+                        <h4 className="font-body-md text-primary font-bold flex items-center gap-2">
                           <Share2 className="w-4 h-4" /> Compartilhar com o Clube
                         </h4>
                         <div className={cn(
                           "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                          book.status === 'available' ? "bg-[#76da75]/20 text-[#006e1c]" : "bg-[#3f484c]/10 text-[#3f484c]"
+                          book.status === 'available' ? "bg-tertiary-container/20 text-tertiary" : "bg-on-surface-variant/10 text-on-surface-variant"
                         )}>
                           {book.status === 'available' ? 'Público' : 'Privado'}
                         </div>
                      </div>
                      
-                     <div className="flex items-center gap-3 bg-white/50 p-3 rounded-xl border border-[#87ceeb]/20">
+                     <div className="flex items-center gap-3 bg-surface-container-high/60 p-3 rounded-xl border border-primary-container/20">
                         <input
                           type="checkbox"
                           id="shareBookDetailToggle"
                           checked={isShareable || book.status === 'available'}
                           disabled={isSaving}
                           onChange={(e) => handleToggleShare(e.target.checked)}
-                          className="w-5 h-5 text-[#0c6780] border-[#bfc8cd] rounded focus:ring-[#0c6780] cursor-pointer"
+                          className="w-5 h-5 text-primary border-outline-variant rounded focus:ring-primary cursor-pointer"
                         />
-                        <label htmlFor="shareBookDetailToggle" className="text-sm font-bold text-[#3f484c] cursor-pointer">
+                        <label htmlFor="shareBookDetailToggle" className="text-sm font-bold text-on-surface-variant cursor-pointer">
                           Disponibilizar para empréstimo no Clube
                         </label>
                      </div>
@@ -477,28 +477,28 @@ export default function BookDetail() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative bg-white max-w-sm w-full p-8 rounded-3xl shadow-2xl space-y-6 text-center"
+              className="relative bg-surface-container-low max-w-sm w-full p-8 rounded-3xl shadow-2xl space-y-6 text-center"
             >
               <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
                 <Trash2 className="w-8 h-8" />
               </div>
               <div>
-                <h3 className="font-headline-sm font-bold text-[#1d1d03] mb-2">Apagar Livro?</h3>
-                <p className="font-body-md text-[#3f484c]">
+                <h3 className="font-headline-sm font-bold text-on-background mb-2">Apagar Livro?</h3>
+                <p className="font-body-md text-on-surface-variant">
                   Tem certeza que deseja remover esta aventura da sua estante? Seu progresso será guardado, mas o livro não aparecerá mais aqui.
                 </p>
               </div>
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowDeleteModal(false)}
-                  className="flex-1 py-3 px-4 rounded-2xl border-2 border-[#bfc8cd] text-[#3f484c] font-bold hover:bg-[#f2f0c4] transition-colors"
+                  className="flex-1 py-3 px-4 rounded-2xl border-2 border-outline-variant text-on-surface-variant font-bold hover:bg-surface-container transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={handleDeleteBook}
                   disabled={isSaving}
-                  className="flex-1 py-3 px-4 rounded-2xl bg-red-600 text-white font-bold shadow-lg hover:bg-red-700 transition-all"
+                  className="flex-1 py-3 px-4 rounded-2xl bg-red-600 text-on-surface font-bold shadow-lg hover:bg-red-700 transition-all"
                 >
                   {isSaving ? 'Removendo...' : 'Sim, remover'}
                 </button>
