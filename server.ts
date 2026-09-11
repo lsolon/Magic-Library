@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
+import { MercadoPagoConfig, Preference } from "mercadopago";
 import dotenv from "dotenv";
 import fs from "fs";
 
@@ -15,7 +16,16 @@ if (process.env.NODE_ENV === "production" || isDist) {
 }
 dotenv.config(); // Fallback for standard .env
 
-let aiClient = null;
+
+let mpClient: MercadoPagoConfig | null = null;
+function getMP() {
+  if (!mpClient) {
+    const token = process.env.MERCADOPAGO_ACCESS_TOKEN || "APP_USR-dummy";
+    mpClient = new MercadoPagoConfig({ accessToken: token });
+  }
+  return mpClient;
+}
+let aiClient: any = null;
 function getAI() {
   if (!aiClient) {
     if (!process.env.GEMINI_API_KEY) {
@@ -54,6 +64,60 @@ async function startServer() {
        app.use(basePathForApi + "/api", apiRouter);
     }
   }
+
+  apiRouter.post("/create-preference", async (req, res) => {
+    try {
+      const { plan, userEmail } = req.body;
+      let title = "";
+      let price = 0;
+
+      if (plan === "monthly") {
+        title = "Magic Library - Plano Mensal";
+        price = 18.00;
+      } else if (plan === "annual") {
+        title = "Magic Library - Plano Anual";
+        price = 183.60;
+      } else {
+        return res.status(400).json({ error: "Plano inválido" });
+      }
+
+      const client = getMP();
+      const preference = new Preference(client);
+      
+      const hostUrl = process.env.HOST_URL || (req.headers.origin || "http://localhost:5173");
+      const basePath = process.env.VITE_BASE_PATH || '/';
+      const returnUrl = hostUrl.endsWith('/') ? hostUrl.slice(0, -1) : hostUrl;
+
+      const response = await preference.create({
+        body: {
+          items: [
+            {
+              id: plan,
+              title: title,
+              quantity: 1,
+              unit_price: price,
+              currency_id: "BRL"
+            }
+          ],
+          payer: {
+            email: userEmail
+          },
+          back_urls: {
+            success: `${returnUrl}${basePath === '/' ? '' : basePath}subscription-success`,
+            failure: `${returnUrl}${basePath === '/' ? '' : basePath}subscription`,
+            pending: `${returnUrl}${basePath === '/' ? '' : basePath}subscription`
+          },
+          auto_return: "approved"
+        }
+      });
+
+      res.json({ init_point: response.init_point });
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    }
+  });
+
   apiRouter.get("/health", (req, res) => {
     res.json({ status: "ok" });
   });

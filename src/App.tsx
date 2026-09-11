@@ -7,6 +7,8 @@ import Library from './views/Library';
 import ExchangeChat from './views/ExchangeChat';
 import Register from './views/Register';
 import Profile from './views/Profile';
+import Subscription from './views/Subscription';
+import SubscriptionSuccess from './views/SubscriptionSuccess';
 import AdminPanel from './views/AdminPanel';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import AddBook from './views/AddBook';
@@ -56,6 +58,8 @@ export default function App() {
           <Route path="/chat" element={<ProtectedRoute><ExchangeChat /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/admin" element={<ProtectedRoute><AdminPanel /></ProtectedRoute>} />
+          <Route path="/subscription" element={<ProtectedRoute><Subscription /></ProtectedRoute>} />
+          <Route path="/subscription-success" element={<ProtectedRoute><SubscriptionSuccess /></ProtectedRoute>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
