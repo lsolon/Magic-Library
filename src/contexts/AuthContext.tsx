@@ -17,6 +17,9 @@ interface AuthContextType {
   userAvatar: string;
   loading: boolean;
   needsProfileSetup: boolean;
+  isTrialExpired: boolean;
+  trialDaysLeft: number;
+  isSubscribed: boolean;
   signInWithGoogle: () => Promise<void>;
   registerWithEmail: (email: string, password: string, name: string, realName: string) => Promise<void>;
   loginWithEmail: (email: string, password: string) => Promise<void>;
@@ -30,7 +33,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [userAvatar, setUserAvatar] = useState<string>('');
   const [loading, setLoading] = useState(true);
+
   const [needsProfileSetup, setNeedsProfileSetup] = useState(false);
+  const [isTrialExpired, setIsTrialExpired] = useState(false);
+  const [trialDaysLeft, setTrialDaysLeft] = useState(30);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
 
   useEffect(() => {
     let unsubscribeDoc: (() => void) | undefined = undefined;
@@ -60,6 +68,29 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (docSnap.exists()) {
             setNeedsProfileSetup(false);
             const data = docSnap.data();
+            
+            // Check subscription and trial
+            const subscribed = !!data.isSubscribed;
+            setIsSubscribed(subscribed);
+            
+            if (data.createdAt && !subscribed) {
+              const createdDate = data.createdAt.toDate ? data.createdAt.toDate() : new Date(data.createdAt.seconds * 1000);
+              const now = new Date();
+              const diffTime = Math.abs(now.getTime() - createdDate.getTime());
+              const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+              const daysLeft = Math.max(0, 30 - diffDays);
+              
+              setTrialDaysLeft(daysLeft);
+              setIsTrialExpired(daysLeft === 0);
+            } else if (subscribed) {
+              setTrialDaysLeft(30);
+              setIsTrialExpired(false);
+            } else {
+               // Fallback if no createdAt
+              setTrialDaysLeft(30);
+              setIsTrialExpired(false);
+            }
+
             if (data.avatarUrl) {
               setUserAvatar(data.avatarUrl);
             } else {
@@ -67,6 +98,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
           } else {
             setNeedsProfileSetup(true);
+            setIsTrialExpired(false);
+            setIsSubscribed(false);
+            setTrialDaysLeft(30);
             setUserAvatar(currentUser.photoURL || 'https://api.dicebear.com/7.x/bottts/svg?seed=' + currentUser.uid);
           }
           setLoading(false);
@@ -164,7 +198,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, userAvatar, loading, needsProfileSetup, signInWithGoogle, registerWithEmail, loginWithEmail, logout, completeProfile }}>
+    <AuthContext.Provider value={{ user, userAvatar, loading, needsProfileSetup, isTrialExpired, trialDaysLeft, isSubscribed, signInWithGoogle, registerWithEmail, loginWithEmail, logout, completeProfile }}>
       {!loading && children}
     </AuthContext.Provider>
   );
